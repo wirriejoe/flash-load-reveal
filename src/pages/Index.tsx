@@ -1,13 +1,11 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import LoadingReveal from "@/components/LoadingReveal";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <LoadingReveal
+      text="MFC2... soon."
+      logoSrc="/lovable-uploads/7c1b7c3e-42d8-453f-9d44-5035d35e4ecc.png"
+    />
   );
 };
 

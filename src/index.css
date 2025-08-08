@@ -26,8 +26,13 @@ All colors MUST be HSL.
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
+    --accent: 86 95% 54%;
     --accent-foreground: 222.2 47.4% 11.2%;
+    --brand: 86 95% 54%;
+    --brand-foreground: 222.2 47.4% 11.2%;
+    --primary-glow: 86 95% 64%;
+    --gradient-primary: linear-gradient(135deg, hsl(var(--brand) / 0.9), hsl(var(--brand) / 0.6));
+    --shadow-glow: 0 0 32px hsl(var(--brand) / 0.45);
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -74,8 +79,13 @@ All colors MUST be HSL.
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 86 95% 54%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --brand: 86 95% 54%;
+    --brand-foreground: 222.2 47.4% 11.2%;
+    --primary-glow: 86 95% 64%;
+    --gradient-primary: linear-gradient(135deg, hsl(var(--brand) / 0.9), hsl(var(--brand) / 0.6));
+    --shadow-glow: 0 0 32px hsl(var(--brand) / 0.45);
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
