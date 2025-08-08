@@ -3,7 +3,7 @@ import LoadingReveal from "@/components/LoadingReveal";
 const Index = () => {
   return (
     <LoadingReveal
-      text="MFC2... soon."
+      text="MFC2... coming soon."
       logoSrc="/lovable-uploads/7c1b7c3e-42d8-453f-9d44-5035d35e4ecc.png"
     />
   );
