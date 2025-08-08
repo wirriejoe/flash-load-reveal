@@ -117,9 +117,19 @@ export default function LoadingReveal({
           </div>
         ) : (
           <article className="text-center animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-none text-foreground md:whitespace-nowrap">
-              {text}
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-none text-foreground text-neon">
+              <span className="inline-flex items-end -skew-x-12">
+                <span className="relative inline-block">
+                  <span className="inline-block mr-2">MFC</span>
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-0 right-6 -bottom-2 h-1 bg-primary rounded-full drop-shadow-[0_0_12px_hsl(var(--primary)/0.8)]"
+                  />
+                </span>
+                <span className="-ml-1">2</span>
+              </span>
             </h1>
+            <p className="mt-4 text-lg md:text-2xl text-foreground/90 text-neon">COMING SOON.</p>
             {logoSrc && (
               <img
                 src={logoSrc}
