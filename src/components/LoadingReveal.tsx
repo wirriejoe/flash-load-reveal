@@ -8,9 +8,40 @@ interface LoadingRevealProps {
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
+const styles = `
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+  
+  .text-glow-neon-white-light {
+    color: #ffffff;
+    text-shadow:
+      0 0 2px hsl(0 0% 100% / 0.6),
+      0 0 8px hsl(0 0% 100% / 0.5),
+      0 0 20px hsl(0 0% 100% / 0.3),
+      0 0 30px hsl(0 0% 100% / 0.2);
+  }
+  
+  .glow-neon-white-light {
+    filter:
+      drop-shadow(0 0 6px hsl(0 0% 100% / 0.4))
+      drop-shadow(0 0 15px hsl(0 0% 100% / 0.25));
+  }
+`;
+
 // Loading-to-reveal interaction with smooth progress and synced logo reveal
 export default function LoadingReveal({
-  text = "MFC2... soon.",
   logoSrc,
   durationMs = 2500,
 }: LoadingRevealProps) {
@@ -91,9 +122,11 @@ export default function LoadingReveal({
   const revealed = timeComplete && logoLoaded;
 
   return (
-    // Force dark theme locally: black background with white text via semantic tokens
-    <main className="dark min-h-screen grid place-items-center bg-background text-foreground">
-      <section className="w-full px-6">
+    <>
+      <style>{styles}</style>
+      {/* Force dark theme locally: black background with white text via semantic tokens */}
+      <main className="dark min-h-screen grid place-items-center bg-background text-foreground">
+        <section className="w-full px-6">
         {!revealed ? (
           <div className="flex flex-col items-center gap-8 animate-fade-in" aria-busy={!revealed}>
             <p className="tracking-widest text-xl md:text-2xl opacity-90">
@@ -117,32 +150,31 @@ export default function LoadingReveal({
           </div>
         ) : (
           <article className="text-center animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-none text-foreground text-glow-neon-green">
-              <span className="inline-flex items-end -skew-x-12">
-                <span className="relative inline-block">
-                  <span className="inline-block mr-2">MFC</span>
-                  <span
-                    aria-hidden="true"
-                    className="absolute left-0 right-6 -bottom-2 h-1 bg-primary/80 rounded-full"
-                  />
-                </span>
-                <span className="-ml-1">2</span>
-              </span>
-            </h1>
-            <p className="mt-4 text-lg md:text-2xl text-foreground text-glow-neon-green">COMING SOON.</p>
+            <div className="inline-block text-foreground text-glow-neon-white-light glow-neon-white-light" style={{ transform: 'skewX(-8deg)' }}>
+              <div className="text-5xl md:text-7xl tracking-wider md:tracking-widest leading-none select-none" style={{ fontWeight: 900, WebkitTextStroke: '1px white' }}>
+                MFC
+              </div>
+              <div className="flex items-start -mt-1">
+                <div className="h-[8px] md:h-[10px] w-[90px] md:w-[130px] bg-foreground mt-1 ml-1" />
+                <span className="text-5xl md:text-7xl tracking-tight leading-none select-none ml-1 -mt-2" style={{ fontWeight: 900, WebkitTextStroke: '1px white' }}>2</span>
+              </div>
+            </div>
             {logoSrc && (
               <img
                 src={logoSrc}
-                alt="MFC2 brand logo with neon glow"
+                alt="MFC2 brand logo"
                 loading="eager"
                 decoding="sync"
                 fetchPriority="high"
-                className="mx-auto mt-8 w-24 md:w-32 select-none glow-neon-green"
+                className="mx-auto mt-8 w-24 md:w-32 select-none"
               />
             )}
+            <p className="mt-6 text-lg md:text-2xl text-foreground text-glow-neon-white-light glow-neon-white-light">COMING SOON.</p>
           </article>
         )}
-      </section>
-    </main>
+        </section>
+      </main>
+    </>
   );
 }
+

@@ -119,10 +119,45 @@ All colors MUST be HSL.
     text-shadow: 0 0 8px hsl(var(--primary) / 0.7), 0 0 24px hsl(var(--primary) / 0.5), 0 0 48px hsl(var(--primary) / 0.35);
   }
   .text-glow-neon-green {
-    /* subtle neon-green glow without changing text color */
-    text-shadow: 0 0 1px hsl(73 100% 50% / 0.35), 0 0 3px hsl(73 100% 50% / 0.25);
+    /*
+      Subtle neon effect with an inner-like crispness.
+      First shadow is a faint white to simulate inner glow on glyph edges,
+      followed by two very soft green halos. Kept intentionally low-alpha.
+    */
+    text-shadow:
+      0 0 1.25px hsl(0 0% 100% / 0.45),
+      0 0 6px hsl(73 100% 50% / 0.28),
+      0 0 14px hsl(73 100% 50% / 0.18);
+    /* extra safety: some renderers show shadow weakly on large text */
+    filter:
+      drop-shadow(0 0 1px hsl(0 0% 100% / 0.35))
+      drop-shadow(0 0 6px hsl(73 100% 50% / 0.22))
+      drop-shadow(0 0 12px hsl(73 100% 50% / 0.14));
   }
   .glow-neon-green {
-    filter: drop-shadow(0 0 1px hsl(73 100% 50% / 0.35)) drop-shadow(0 0 3px hsl(73 100% 50% / 0.25));
+    /*
+      Subtle neon halo for logos/images. A tiny white micro-shadow adds edge clarity,
+      with two faint green halos for ambiance.
+    */
+    filter:
+      drop-shadow(0 0 1px hsl(0 0% 100% / 0.40))
+      drop-shadow(0 0 6px hsl(73 100% 50% / 0.26))
+      drop-shadow(0 0 14px hsl(73 100% 50% / 0.16));
+  }
+
+  /* White neon variants */
+  .text-glow-neon-white-light {
+    color: #ffffff;
+    /* crisp edge + soft halo (slightly stronger) */
+    text-shadow:
+      0 0 1px hsl(0 0% 100% / 0.35),
+      0 0 5px hsl(0 0% 100% / 0.30),
+      0 0 14px hsl(0 0% 100% / 0.16);
+  }
+  .glow-neon-white-light {
+    /* image/logo-friendly subtle white halo */
+    filter:
+      drop-shadow(0 0 4px hsl(0 0% 100% / 0.24))
+      drop-shadow(0 0 12px hsl(0 0% 100% / 0.16));
   }
 }
