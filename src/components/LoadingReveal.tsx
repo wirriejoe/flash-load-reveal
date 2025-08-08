@@ -27,16 +27,21 @@ export default function LoadingReveal({
     []
   );
 
-  // Preload logo to avoid a reveal gap where text shows without the image
+  // Preload + decode logo so text and image reveal together
   useEffect(() => {
     if (!logoSrc) return;
     const img = new Image();
-    img.onload = () => setLogoLoaded(true);
-    img.onerror = () => setLogoLoaded(true); // don't block on errors
     img.src = logoSrc;
+    const finish = () => setLogoLoaded(true);
+    if (typeof img.decode === "function") {
+      img.decode().then(finish).catch(finish);
+    } else {
+      img.onload = finish;
+      img.onerror = finish; // don't block on errors
+    }
   }, [logoSrc]);
 
-  // Drive a smooth, staged progress (to ~92%, hold, then complete)
+  // Smooth ease-out progress to 100% (no hold/hitch)
   useEffect(() => {
     if (prefersReducedMotion) {
       setProgress(100);
@@ -45,26 +50,14 @@ export default function LoadingReveal({
     }
 
     const start = performance.now();
-    const phase1 = durationMs * 0.64; // to ~92%
-    const hold = durationMs * 0.22; // pause near end
-    const phase2 = durationMs * 0.14; // finish
-    const target1 = 92;
 
     const tick = (now: number) => {
-      const elapsed = now - start;
-      if (elapsed < phase1) {
-        const t = easeOutCubic(elapsed / phase1);
-        setProgress(Math.min(target1, t * target1));
-        rafRef.current = requestAnimationFrame(tick);
-      } else if (elapsed < phase1 + hold) {
-        setProgress(target1);
-        rafRef.current = requestAnimationFrame(tick);
-      } else if (elapsed < phase1 + hold + phase2) {
-        const t = easeOutCubic((elapsed - phase1 - hold) / phase2);
-        setProgress(Math.min(100, target1 + t * (100 - target1)));
+      const t = Math.min(1, (now - start) / durationMs);
+      const eased = easeOutCubic(t);
+      setProgress(eased * 100);
+      if (t < 1) {
         rafRef.current = requestAnimationFrame(tick);
       } else {
-        setProgress(100);
         setTimeComplete(true);
       }
     };
@@ -112,6 +105,8 @@ export default function LoadingReveal({
                 src={logoSrc}
                 alt="MFC2 brand logo"
                 loading="eager"
+                decoding="sync"
+                fetchPriority="high"
                 className="mx-auto mt-8 w-24 md:w-32 select-none"
               />
             )}
