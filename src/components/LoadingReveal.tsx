@@ -93,7 +93,7 @@ export default function LoadingReveal({
   return (
     // Force dark theme locally: black background with white text via semantic tokens
     <main className="dark min-h-screen grid place-items-center bg-background text-foreground">
-      <section className="w-full max-w-3xl px-6">
+      <section className="w-full px-6">
         {!revealed ? (
           <div className="flex flex-col items-center gap-8 animate-fade-in" aria-busy={!revealed}>
             <p className="tracking-widest text-xl md:text-2xl opacity-90">
@@ -117,7 +117,7 @@ export default function LoadingReveal({
           </div>
         ) : (
           <article className="text-center animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-none text-foreground">
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-none text-foreground md:whitespace-nowrap">
               {text}
             </h1>
             {logoSrc && (
