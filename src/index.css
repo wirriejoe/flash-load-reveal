@@ -120,9 +120,9 @@ All colors MUST be HSL.
   }
   .text-glow-neon-green {
     color: hsl(73 100% 50%);
-    text-shadow: 0 0 5px hsl(73 100% 50%), 0 0 10px hsl(73 100% 50%), 0 0 20px hsl(73 100% 50%), 0 0 40px hsl(73 100% 50%);
+    text-shadow: 0 0 1px hsl(73 100% 50% / 0.35), 0 0 3px hsl(73 100% 50% / 0.25);
   }
   .glow-neon-green {
-    filter: drop-shadow(0 0 5px hsl(73 100% 50%)) drop-shadow(0 0 15px hsl(73 100% 50%)) drop-shadow(0 0 30px hsl(73 100% 50%));
+    filter: drop-shadow(0 0 1px hsl(73 100% 50% / 0.35)) drop-shadow(0 0 3px hsl(73 100% 50% / 0.25));
   }
 }

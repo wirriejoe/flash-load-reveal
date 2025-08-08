@@ -123,7 +123,7 @@ export default function LoadingReveal({
                   <span className="inline-block mr-2">MFC</span>
                   <span
                     aria-hidden="true"
-                    className="absolute left-0 right-6 -bottom-2 h-1 bg-primary rounded-full drop-shadow-[0_0_12px_hsl(var(--primary)/0.8)]"
+                    className="absolute left-0 right-6 -bottom-2 h-1 bg-primary/80 rounded-full"
                   />
                 </span>
                 <span className="-ml-1">2</span>
