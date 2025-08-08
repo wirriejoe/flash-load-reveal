@@ -96,7 +96,7 @@ export default function LoadingReveal({
       <section className="w-full max-w-3xl px-6">
         {!revealed ? (
           <div className="flex flex-col items-center gap-8 animate-fade-in" aria-busy={!revealed}>
-            <p className="font-mono tracking-widest text-xl md:text-2xl opacity-90">
+            <p className="tracking-widest text-xl md:text-2xl opacity-90">
               LOADING...
             </p>
             <div className="w-full md:w-4/5">
