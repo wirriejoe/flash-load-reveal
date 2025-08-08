@@ -18,7 +18,7 @@ export default function LoadingReveal({
   const [timeComplete, setTimeComplete] = useState(false);
   const [logoLoaded, setLogoLoaded] = useState(!logoSrc);
   const rafRef = useRef<number | null>(null);
-
+  const finishStartRef = useRef<number | null>(null);
   const prefersReducedMotion = useMemo(
     () =>
       typeof window !== "undefined" &&
@@ -41,7 +41,7 @@ export default function LoadingReveal({
     }
   }, [logoSrc]);
 
-  // Smooth ease-out progress to 100% (no hold/hitch)
+  // Progress approaches 99% until logo is ready, then smooth finish to 100%
   useEffect(() => {
     if (prefersReducedMotion) {
       setProgress(100);
@@ -50,23 +50,43 @@ export default function LoadingReveal({
     }
 
     const start = performance.now();
+    finishStartRef.current = null;
 
     const tick = (now: number) => {
+      // If we're in the finishing phase, animate 99 -> 100 smoothly
+      if (finishStartRef.current !== null) {
+        const ft = Math.min(1, (now - finishStartRef.current) / 220);
+        const eased = easeOutCubic(ft);
+        setProgress(99 + eased * 1);
+        if (ft < 1) {
+          rafRef.current = requestAnimationFrame(tick);
+        } else {
+          setProgress(100);
+          setTimeComplete(true);
+        }
+        return;
+      }
+
       const t = Math.min(1, (now - start) / durationMs);
       const eased = easeOutCubic(t);
-      setProgress(eased * 100);
-      if (t < 1) {
+      const target = Math.min(99, eased * 100);
+
+      const canFinish = t >= 1 && logoLoaded;
+      if (canFinish) {
+        finishStartRef.current = now;
         rafRef.current = requestAnimationFrame(tick);
-      } else {
-        setTimeComplete(true);
+        return;
       }
+
+      setProgress(target);
+      rafRef.current = requestAnimationFrame(tick);
     };
 
     rafRef.current = requestAnimationFrame(tick);
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [durationMs, prefersReducedMotion]);
+  }, [durationMs, prefersReducedMotion, logoLoaded]);
 
   const revealed = timeComplete && logoLoaded;
 
