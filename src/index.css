@@ -118,4 +118,11 @@ All colors MUST be HSL.
   .text-neon {
     text-shadow: 0 0 8px hsl(var(--primary) / 0.7), 0 0 24px hsl(var(--primary) / 0.5), 0 0 48px hsl(var(--primary) / 0.35);
   }
+  .text-glow-neon-green {
+    color: hsl(73 100% 50%);
+    text-shadow: 0 0 5px hsl(73 100% 50%), 0 0 10px hsl(73 100% 50%), 0 0 20px hsl(73 100% 50%), 0 0 40px hsl(73 100% 50%);
+  }
+  .glow-neon-green {
+    filter: drop-shadow(0 0 5px hsl(73 100% 50%)) drop-shadow(0 0 15px hsl(73 100% 50%)) drop-shadow(0 0 30px hsl(73 100% 50%));
+  }
 }
